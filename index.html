@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello X3DOM</title>
+    <script type="text/javascript" src="x3dom/x3dom.js"></script>
+    <link rel="stylesheet" href="x3dom/x3dom.css">
+    <link rel="stylesheet" href="background.css">
+    <script type="text/javascript" src="app.js"></script>
+</head>
+<body onload="main()">
+<x3d width="1000px" height="600px">
+    <scene id="scene">
+        <Viewpoint id="viewpoint"
+                position="0 2 13"
+                orientation="0 0 0 0"
+                zNear="0"
+                zFar="1000"
+                centerOfRotation="0 0 0"
+                fieldOfView="0.78540"
+                description="defaultX3DViewpointNode">
+        </Viewpoint>
+<!--        -1.57 for 90 degree-->
+<!--        ground-->
+        <group id="walls">
+        <Transform translation="0 -1 0" rotation="1 0 0 -1.57" scale="8 8 1">
+            <Shape>
+                <Appearance>
+                    <ImageTexture url="tile_mosaic.png"></ImageTexture>
+                </Appearance>
+                <IndexedFaceSet coordIndex="0 1 2 3 -1" solid="false">
+                    <Coordinate point="-1 -1 0, 1 -1 0, 1 1 0, -1 1 0"></Coordinate>
+                </IndexedFaceSet>
+            </Shape>
+        </Transform>
+<!--        left wall-->
+
+        <Transform translation="-8 3 0" rotation="0 1 0 -1.57" scale="8 4 1">
+            <Shape>
+                <Appearance>
+                    <ImageTexture url="tile_mosaic.png"></ImageTexture>
+                </Appearance>
+                <IndexedFaceSet coordIndex="0 1 2 3 -1" solid="false">
+                    <Coordinate point="-1 -1 0, 1 -1 0, 1 1 0, -1 1 0"></Coordinate>
+                </IndexedFaceSet>
+            </Shape>
+        </Transform>
+<!--        right wall-->
+        <Transform translation="8 3 0" rotation="0 1 0 -1.57" scale="8 4 1">
+            <Shape>
+                <Appearance>
+                    <ImageTexture url="tile_mosaic.png"></ImageTexture>
+                </Appearance>
+                <IndexedFaceSet coordIndex="0 1 2 3 -1" solid="false">
+                    <Coordinate point="-1 -1 0, 1 -1 0, 1 1 0, -1 1 0"></Coordinate>
+                </IndexedFaceSet>
+            </Shape>
+        </Transform>
+<!--        back wall-->
+        <Transform translation="0 3 -8" rotation="0 0 1 -1.57" scale="4 8 1">
+            <Shape>
+                <Appearance>
+                    <ImageTexture url="tile_mosaic.png"></ImageTexture>
+                </Appearance>
+                <IndexedFaceSet coordIndex="0 1 2 3 -1" solid="false">
+                    <Coordinate point="-1 -1 0, 1 -1 0, 1 1 0, -1 1 0"></Coordinate>
+                </IndexedFaceSet>
+            </Shape>
+        </Transform>
+<!--        ceiling-->
+        <Transform translation="0 7 0" rotation="1 0 0 -1.57" scale="8 8 1">
+            <Shape>
+                <Appearance>
+                    <ImageTexture url="tile_mosaic.png"></ImageTexture>
+                </Appearance>
+                <IndexedFaceSet coordIndex="0 1 2 3 -1" solid="false">
+                    <Coordinate point="-1 -1 0, 1 -1 0, 1 1 0, -1 1 0"></Coordinate>
+                </IndexedFaceSet>
+            </Shape>
+        </Transform>
+        </group>
+<!--        light-->
+        <Transform translation="0 6.5 0" rotation="1 0 0 -1.57" scale="2 2 3">
+            <Shape>
+                <Appearance>
+                    <ImageTexture url="ceilingLight.png"></ImageTexture>
+                </Appearance>
+                <IndexedFaceSet coordIndex="0 1 2 3 -1" solid="false">
+                    <Coordinate point="-1 -1 0, 1 -1 0, 1 1 0, -1 1 0"></Coordinate>
+                </IndexedFaceSet>
+            </Shape>
+            <SpotLight id="ceilingLight"
+                       location="0 6.5 0"
+                       direction="0 -1 0"
+                       beamWidth="5"
+                       cutOffAngle="0.8"
+                       intensity="0.5"
+                       color="1 1 1">
+            </SpotLight>
+        </Transform>
+<!--        switch base-->
+        <Transform translation="-7.9 3 -3" rotation="0 1 0 -1.57">
+            <Shape>
+                <Appearance>
+                    <material diffuseColor="0.5 0.5 0.5"></material>
+                </Appearance>
+                <box size="1 1.3 0.15"></box>
+            </Shape>
+<!--            green: switch on-->
+            <Transform translation="-0.2 0.2 0">
+                <Shape>
+                    <Appearance>
+                        <material id="greenButton" diffuseColor="0 1 0">
+                        </material>
+                    </Appearance>
+                    <box size="0.6 0.45 0.3"></box>
+                </Shape>
+            </Transform>
+<!--            red: switch off-->
+            <Transform translation="-0.2 -0.2 0">
+                <Shape>
+                    <Appearance>
+                        <material id="redButton" diffuseColor="1 0 0">
+                        </material>
+                    </Appearance>
+                    <box size="0.6 0.45 0.3"></box>
+                </Shape>
+            </Transform>
+        </Transform>
+<!--        displayBoard-->
+        <Transform translation="-3.2 0 -3">
+            <Transform translation="0 2.5 0">
+                <Shape>
+                    <Appearance>
+                        <material diffuseColor="0.726 0.648 0.555"></material>
+                    </Appearance>
+                    <box size="3 3 1"></box>
+                </Shape>
+            </Transform>
+<!--            panel-->
+            <Transform translation="0 2.5 0.5" scale="1.2 1.2 1">
+                <Shape>
+                    <Appearance id="panel">
+                        <material diffuseColor="1 1 1"></material>
+<!--                        change CT textures on panel on time matters-->
+<!--                        add logic to enable loading in image texture-->
+<!--                        <ImageTexture url="CT_slices/1.png"></ImageTexture>-->
+                    </Appearance>
+<!--                    <IndexedFaceSet coordIndex="0 1 2 3 -1" solid="false">-->
+<!--                        <Coordinate point="-1 -1 0, 1 -1 0, 1 1 0, -1 1 0"></Coordinate>-->
+<!--                    </IndexedFaceSet>-->
+<!--                    change to box to avoid blinking-->
+                    <box size="2 2 0.2"></box>
+                </Shape>
+            </Transform>
+<!--           displayBoard's leg-->
+            <Transform translation="0 1 0">
+                <Shape>
+                    <Appearance>
+                        <material diffuseColor="0.726 0.648 0.555"></material>
+                    </Appearance>
+                    <cylinder height="4" radius="0.5"></cylinder>
+                </Shape>
+            </Transform>
+        </Transform>
+    </scene>
+</x3d>
+<button onclick="play()">
+    play
+</button>
+</body>
+</html>
